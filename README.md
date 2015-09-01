@@ -11,6 +11,7 @@ The script also writes a log file each time it is run so you can check the resul
 ## Parameters
 
 * **-Logpath**, The IIS log directory to cleanup.
+* **-SavedDays**, The maximum number of days to leave the log files uncompressed. By default its 7 days.
 * **-ArchivePath**, The path to a location where zip files are moved to, for example a central log repository stored on a NAS.
 
 ## Usage Examples
@@ -19,6 +20,11 @@ The script also writes a log file each time it is run so you can check the resul
 .\IISLogsCleanup.ps1 -Logpath "D:\IIS Logs\W3SVC1"
 ```
 This example will compress the log files in "D:\IIS Logs\W3SVC1" and leave the zip files in that location.
+
+```
+.\IISLogsCleanup.ps1 -Logpath "D:\IIS Logs\W3SVC1" -SavedDays 10
+```
+This example will compress the log files in "D:\IIS Logs\W3SVC1", leave the zip files in that location and leave the last 10 days of log files without being compressed.
 
 ```
 .\IISLogsCleanup.ps1 -Logpath "D:\IIS Logs\W3SVC1" -ArchivePath "\\nas01\archives\iislogs"
@@ -50,3 +56,4 @@ Additional Credits:
 * Filip Kasaj - http://ficility.net/2013/02/25/ps-2-0-remove-and-compress-iis-logs-automatically/
 * Rob Pettigrew - regional date issues
 * Alain Arnould - Zip file locking issues
+* Pedro Arizmendi - Update to configure days instead of last month

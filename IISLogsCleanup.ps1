@@ -135,13 +135,13 @@ Function Write-Logfile()
 function IsFileLocked( [string]$path)
 {
     If ([string]::IsNullOrEmpty($path) -eq $true) {
-        Throw ìThe path must be specified.î
+        Throw ‚ÄúThe path must be specified.‚Äù
     }
 
     [bool] $fileExists = Test-Path $path
 
     If ($fileExists -eq $false) {
-        Throw ìFile does not exist (î + $path + ì)î
+        Throw ‚ÄúFile does not exist (‚Äù + $path + ‚Äú)‚Äù
     }
 
     [bool] $isFileLocked = $true
@@ -159,7 +159,7 @@ function IsFileLocked( [string]$path)
     }
     Catch [IO.IOException]
     {
-        If ($_.Exception.Message.EndsWith(ìit is being used by another process.î) -eq $false)
+        If ($_.Exception.Message.EndsWith(‚Äúit is being used by another process.‚Äù) -eq $false)
         {
             # Throw $_.Exception
             [bool] $isFileLocked = $true
@@ -293,10 +293,10 @@ foreach ($date in $dates)
     Write-Host $tmpstring
     Write-Logfile $tmpstring
 
-    #If counts match it is safe to delete the log files from disk
-    if ($zippedcount -eq $($zipfiles.Count))
+    #If files count in zip is greater than or equal to files found it is safe to delete the log files from disk
+    if ($zippedcount -ge $($zipfiles.Count))
     {
-        $tmpstring = "Zipped file count matches log file count, safe to delete log files"
+        $tmpstring = "Zipped file count is greater than or equal to log file count, safe to delete log files"
         Write-Host $tmpstring
         Write-Logfile $tmpstring
         foreach($file in $zipfiles) 
